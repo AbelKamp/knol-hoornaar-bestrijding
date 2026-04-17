@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Knol Hoornaar Bestrijding – professionele verwijdering van Aziatische hoornaars. Snel ter plaatse, veilig en gecertificeerd." />
+  <title>Knol Hoornaar Bestrijding</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --groen: #1a5c2e;
+      --groen-donker: #113d1e;
+      --groen-licht: #e8f5ec;
+      --accent: #f5a623;
+      --tekst: #1a1a1a;
+      --licht-grijs: #f4f4f4;
+      --wit: #ffffff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      color: var(--tekst);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    header {
+      background: var(--groen-donker);
+      color: var(--wit);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .bel-knop-header {
+      background: var(--accent);
+      color: var(--tekst);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 9px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .bel-knop-header:hover { background: #e09510; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--groen-donker) 0%, var(--groen) 100%);
+      color: var(--wit);
+      text-align: center;
+      padding: 72px 20px 64px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      max-width: 580px;
+      margin: 0 auto 36px;
+      opacity: 0.9;
+    }
+
+    .hero-knoppen {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .knop-primair {
+      background: var(--accent);
+      color: var(--tekst);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .knop-primair:hover { background: #e09510; transform: translateY(-1px); }
+
+    .knop-secundair {
+      background: transparent;
+      color: var(--wit);
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 2px solid var(--wit);
+      display: inline-block;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .knop-secundair:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+
+    /* ── SECTIES ALGEMEEN ───────────────────────────── */
+    section { padding: 56px 20px; }
+
+    .sectie-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .sectie-titel {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--groen-donker);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    /* ── VOORDELEN ───────────────────────────────────── */
+    .voordelen { background: var(--licht-grijs); }
+
+    .voordelen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .voordeel-kaart {
+      background: var(--wit);
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .voordeel-icoon {
+      font-size: 2.4rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .voordeel-kaart h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--groen-donker);
+      margin-bottom: 8px;
+    }
+
+    .voordeel-kaart p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* ── INFO ────────────────────────────────────────── */
+    .info { background: var(--wit); }
+
+    .info-blok {
+      background: var(--groen-licht);
+      border-left: 5px solid var(--groen);
+      border-radius: 0 8px 8px 0;
+      padding: 24px 28px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .info-blok p { color: #2a2a2a; }
+    .info-blok p + p { margin-top: 12px; }
+
+    .meld-link {
+      color: var(--groen-donker);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    .contact { background: var(--groen-donker); color: var(--wit); text-align: center; }
+
+    .contact .sectie-titel { color: var(--wit); }
+
+    .contact-ondertitel {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: -20px;
+      margin-bottom: 40px;
+    }
+
+    .contact-kaarten {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .contact-kaart {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 28px 36px;
+      min-width: 240px;
+      flex: 1 1 240px;
+      max-width: 340px;
+    }
+
+    .contact-kaart-icoon {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .contact-kaart h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .contact-waarde {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .contact-waarde:hover { text-decoration: underline; }
+
+    .contact-knoppen {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .openingstijden {
+      margin-top: 36px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: #0b2615;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.6); }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 480px) {
+      .knop-primair, .knop-secundair { width: 100%; text-align: center; }
+      .contact-kaart { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">Knol <span>Hoornaar</span> Bestrijding</div>
+      <a class="bel-knop-header" href="tel:+31600000000">&#128222; Bel nu</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Last van een Aziatische hoornaar?</h1>
+    <p>Knol verwijdert nesten snel, veilig en professioneel. Bel direct voor een afspraak.</p>
+    <div class="hero-knoppen">
+      <a class="knop-primair" href="tel:+31600000000">&#128222;&nbsp; Bel direct</a>
+      <a class="knop-secundair" href="mailto:info@knolhoornaars.nl">&#9993;&nbsp; Stuur een e-mail</a>
+    </div>
+  </section>
+
+  <!-- VOORDELEN -->
+  <section class="voordelen">
+    <div class="sectie-inner">
+      <h2 class="sectie-titel">Waarom Knol?</h2>
+      <div class="voordelen-grid">
+        <div class="voordeel-kaart">
+          <span class="voordeel-icoon">&#9889;</span>
+          <h3>Snel ter plaatse</h3>
+          <p>Na uw melding probeer ik zo snel mogelijk bij u te zijn, ook in de avond en het weekend.</p>
+        </div>
+        <div class="voordeel-kaart">
+          <span class="voordeel-icoon">&#128737;</span>
+          <h3>Veilige verwijdering</h3>
+          <p>Professionele aanpak met de juiste beschermingsmiddelen zodat u geen risico loopt.</p>
+        </div>
+        <div class="voordeel-kaart">
+          <span class="voordeel-icoon">&#10003;</span>
+          <h3>Ervaren &amp; gecertificeerd</h3>
+          <p>Ruime ervaring met het herkennen en bestrijden van Aziatische hoornaars in de regio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section class="info">
+    <div class="sectie-inner">
+      <h2 class="sectie-titel">Wat is de Aziatische hoornaar?</h2>
+      <div class="info-blok">
+        <p>
+          De Aziatische hoornaar (<em>Vespa velutina</em>) is een invasieve soort die oorspronkelijk uit Azië komt.
+          Deze hoornaar vormt een gevaar voor bijen, andere insecten en kan bij een steek een ernstige
+          allergische reactie veroorzaken. Het is wettelijk verplicht een nest te melden bij uw gemeente
+          of provincie.
+        </p>
+        <p>
+          <strong>Verwijder een nest nooit zelf.</strong> Neem direct contact op met Richard voor een
+          veilige en verantwoorde oplossing.
+          U kunt een waarneming ook melden via
+          <a class="meld-link" href="https://waarneming.nl" target="_blank" rel="noopener">waarneming.nl</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="sectie-inner">
+      <h2 class="sectie-titel">Neem contact op</h2>
+      <p class="contact-ondertitel">Bereikbaar op werkdagen en in het weekend</p>
+
+      <div class="contact-kaarten">
+        <div class="contact-kaart">
+          <span class="contact-kaart-icoon">&#128222;</span>
+          <h3>Telefoon</h3>
+          <a class="contact-waarde" href="tel:+31600000000">06-XX XX XX XX</a>
+        </div>
+        <div class="contact-kaart">
+          <span class="contact-kaart-icoon">&#9993;</span>
+          <h3>E-mail</h3>
+          <a class="contact-waarde" href="mailto:info@knolhoornaars.nl">info@knolhoornaars.nl</a>
+        </div>
+      </div>
+
+      <div class="contact-knoppen">
+        <a class="knop-primair" href="tel:+31600000000">&#128222;&nbsp; Bel direct</a>
+        <a class="knop-secundair" href="mailto:info@knolhoornaars.nl">&#9993;&nbsp; Stuur een e-mail</a>
+      </div>
+
+      <p class="openingstijden">Bereikbaar ma–za 08:00–20:00 &nbsp;|&nbsp; Spoedgevallen ook op zondag</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Knol Hoornaar Bestrijding &nbsp;&middot;&nbsp; KvK-nummer: XXXXXXXX &nbsp;&middot;&nbsp; <a href="mailto:info@knolhoornaars.nl">info@knolhoornaars.nl</a></p>
+  </footer>
+
+</body>
+</html>
