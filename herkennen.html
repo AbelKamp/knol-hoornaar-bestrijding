@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Is dit een Aziatische hoornaar? Gebruik onze interactieve herkenningsgids en ontdek het in enkele stappen." />
+  <title>Herken de Aziatische Hoornaar – Knol Hoornaar Bestrijding</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --groen: #1a5c2e;
+      --groen-donker: #113d1e;
+      --groen-licht: #e8f5ec;
+      --accent: #f5a623;
+      --rood: #c0392b;
+      --rood-licht: #fdecea;
+      --geel-licht: #fffbea;
+      --tekst: #1a1a1a;
+      --grijs: #f4f4f4;
+      --wit: #ffffff;
+      --rand: #dde8e0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      color: var(--tekst);
+      line-height: 1.6;
+      background: var(--grijs);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--groen-donker);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .logo { font-size: 1.05rem; font-weight: 700; }
+    .logo a { color: #fff; text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .bel-knop {
+      background: var(--accent);
+      color: var(--tekst);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 9px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--groen-donker), var(--groen));
+      color: #fff;
+      text-align: center;
+      padding: 52px 20px 44px;
+    }
+    .hero h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); font-weight: 800; margin-bottom: 12px; }
+    .hero p { font-size: 1.05rem; opacity: .88; max-width: 560px; margin: 0 auto; }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* ── KAARTEN ── */
+    .kaart {
+      background: var(--wit);
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+    .kaart-titel {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--groen-donker);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .kaart-titel .icoon { font-size: 1.4rem; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .checklist li label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      cursor: pointer;
+      padding: 14px 16px;
+      border-radius: 8px;
+      border: 2px solid var(--rand);
+      background: var(--grijs);
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+
+    .checklist li label:hover { border-color: var(--groen); background: var(--groen-licht); }
+
+    .checklist li input[type="checkbox"] { display: none; }
+
+    .checklist li input[type="checkbox"]:checked + label {
+      border-color: var(--groen);
+      background: var(--groen-licht);
+    }
+
+    .check-box {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border: 2px solid #aaa;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-top: 1px;
+      transition: border-color 0.15s, background 0.15s;
+      background: #fff;
+    }
+
+    .checklist li input[type="checkbox"]:checked ~ label .check-box,
+    .checklist li label.aangevinkt .check-box {
+      background: var(--groen);
+      border-color: var(--groen);
+      color: #fff;
+    }
+
+    .check-tekst { flex: 1; }
+    .check-tekst strong { display: block; font-size: 0.98rem; margin-bottom: 3px; }
+    .check-tekst span { font-size: 0.88rem; color: #555; }
+
+    /* ── RESULTAAT ── */
+    #resultaat {
+      border-radius: 12px;
+      padding: 28px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    #resultaat.laag   { background: var(--groen-licht); border: 2px solid var(--groen); }
+    #resultaat.midden { background: var(--geel-licht);  border: 2px solid var(--accent); }
+    #resultaat.hoog   { background: var(--rood-licht);  border: 2px solid var(--rood); }
+
+    .resultaat-koptekst {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .resultaat-sub { font-size: 0.97rem; margin-bottom: 18px; }
+
+    .bel-groot {
+      display: inline-block;
+      background: var(--rood);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-right: 10px;
+      margin-bottom: 8px;
+    }
+    .bel-groot:hover { background: #a93226; }
+    .meer-info-link {
+      display: inline-block;
+      font-size: 0.95rem;
+      color: var(--groen-donker);
+      font-weight: 700;
+      text-decoration: underline;
+      vertical-align: middle;
+    }
+
+    /* ── VOORTGANGSBALK ── */
+    .voortgang-wrap { margin-bottom: 20px; }
+    .voortgang-label { font-size: 0.88rem; color: #666; margin-bottom: 6px; }
+    .voortgang-balk {
+      height: 8px;
+      background: var(--rand);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .voortgang-vulling {
+      height: 100%;
+      background: var(--groen);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    /* ── VERGELIJKINGSTABEL ── */
+    .vergelijk-tabel {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+    .vergelijk-tabel th {
+      padding: 10px 14px;
+      text-align: left;
+      background: var(--groen-donker);
+      color: #fff;
+      font-weight: 700;
+    }
+    .vergelijk-tabel th:first-child { border-radius: 8px 0 0 0; }
+    .vergelijk-tabel th:last-child  { border-radius: 0 8px 0 0; }
+    .vergelijk-tabel td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--rand);
+      vertical-align: top;
+    }
+    .vergelijk-tabel tr:last-child td { border-bottom: none; }
+    .vergelijk-tabel tr:nth-child(even) td { background: var(--grijs); }
+    .kenmerk-kolom { font-weight: 600; color: var(--groen-donker); width: 28%; }
+    .aziatisch { color: var(--rood); font-weight: 600; }
+
+    /* ── TIPS ── */
+    .tip-lijst { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tip-lijst li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      background: var(--groen-licht);
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .tip-icoon { font-size: 1.2rem; margin-top: 1px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0b2615;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+    footer a { color: rgba(255,255,255,0.6); }
+
+    /* ── RESET KNOP ── */
+    #reset-knop {
+      display: none;
+      margin-top: 14px;
+      background: transparent;
+      border: 2px solid var(--groen);
+      color: var(--groen-donker);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 9px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #reset-knop:hover { background: var(--groen-licht); }
+
+    @media (max-width: 500px) {
+      .kaart { padding: 20px 16px; }
+      .vergelijk-tabel th, .vergelijk-tabel td { padding: 8px 10px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo"><a href="index.html">Knol <span>Hoornaar</span> Bestrijding</a></div>
+    <a class="bel-knop" href="tel:+31600000000">&#128222; Bel direct</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Is dit een Aziatische hoornaar?</h1>
+  <p>Doorloop de checklist hieronder en ontdek in enkele stappen of u te maken heeft met een Aziatische hoornaar.</p>
+</div>
+
+<main>
+
+  <!-- CHECKLIST -->
+  <div class="kaart">
+    <div class="kaart-titel"><span class="icoon">&#128270;</span> Vink aan wat u herkent</div>
+
+    <div class="voortgang-wrap">
+      <div class="voortgang-label" id="voortgang-tekst">0 van 8 kenmerken aangevinkt</div>
+      <div class="voortgang-balk"><div class="voortgang-vulling" id="voortgang-vulling"></div></div>
+    </div>
+
+    <ul class="checklist" id="checklist">
+
+      <li>
+        <input type="checkbox" id="v1" onchange="updateResultaat()">
+        <label for="v1">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Geel-oranje kop</strong>
+            <span>De kop is opvallend geel tot oranje van kleur, duidelijk zichtbaar van voren.</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v2" onchange="updateResultaat()">
+        <label for="v2">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Donker, zwart/bruin lijf</strong>
+            <span>Het lichaam is overwegend donkerbruin tot zwart, met gele strepen alleen op het achterlijf.</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v3" onchange="updateResultaat()">
+        <label for="v3">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Geel-oranje poten (uiteinden)</strong>
+            <span>De poten zijn grotendeels donker maar met opvallend gele of oranje uiteinden (tarsen).</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v4" onchange="updateResultaat()">
+        <label for="v4">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Kleiner dan een Europese hoornaar</strong>
+            <span>De Aziatische hoornaar is doorgaans iets kleiner: werksters zijn 2–3 cm, koninginnen tot 3,5 cm.</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v5" onchange="updateResultaat()">
+        <label for="v5">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Nest hoog in een boom of gebouw</strong>
+            <span>Nesten hangen vaak op 5–15 meter hoogte in bomen, dakranden of onder overstekken. Ze zijn peer- of bolvormig.</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v6" onchange="updateResultaat()">
+        <label for="v6">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Jaagt op bijen bij een bijenkast</strong>
+            <span>Aziatische hoornaars zijn bekende bijenroovers. Ze zweven voor bijenkast-ingangen en grijpen terugkerende bijen.</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v7" onchange="updateResultaat()">
+        <label for="v7">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Actief in de namiddag of avond</strong>
+            <span>Aziatische hoornaars zijn ook actief in de schemering, later op de dag dan inheemse soorten.</span>
+          </div>
+        </label>
+      </li>
+
+      <li>
+        <input type="checkbox" id="v8" onchange="updateResultaat()">
+        <label for="v8">
+          <div class="check-box">&#10003;</div>
+          <div class="check-tekst">
+            <strong>Gevonden in periode april–november</strong>
+            <span>De Aziatische hoornaar is actief van het vroege voorjaar tot de late herfst; koninginnen al vroeg zichtbaar in maart/april.</span>
+          </div>
+        </label>
+      </li>
+
+    </ul>
+
+    <button id="reset-knop" onclick="resetChecklist()">&#8635; Opnieuw beginnen</button>
+  </div>
+
+  <!-- RESULTAAT -->
+  <div id="resultaat">
+    <div class="resultaat-koptekst" id="resultaat-icoon-titel"></div>
+    <div class="resultaat-sub" id="resultaat-tekst"></div>
+    <div id="resultaat-actie"></div>
+  </div>
+
+  <!-- VERGELIJKINGSTABEL -->
+  <div class="kaart">
+    <div class="kaart-titel"><span class="icoon">&#128203;</span> Aziatisch vs. Europees: zo herkent u het verschil</div>
+    <div style="overflow-x:auto;">
+      <table class="vergelijk-tabel">
+        <thead>
+          <tr>
+            <th>Kenmerk</th>
+            <th>Aziatische hoornaar</th>
+            <th>Europese hoornaar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kenmerk-kolom">Kop</td>
+            <td class="aziatisch">Geel-oranje voorkant</td>
+            <td>Roodachtig / geel-bruin</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Lichaam</td>
+            <td class="aziatisch">Overwegend zwart/donkerbruin</td>
+            <td>Bruin-rood met gele banden</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Poten</td>
+            <td class="aziatisch">Donker met gele uiteinden</td>
+            <td>Geel-bruin doorlopend</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Grootte (werkster)</td>
+            <td class="aziatisch">2–3 cm</td>
+            <td>2,5–3,5 cm</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Nestlocatie</td>
+            <td class="aziatisch">Hoog in boom / gevels</td>
+            <td>Laag, vaak in holle bomen of grond</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Nestuiterlijk</td>
+            <td class="aziatisch">Peer-/bolvormig, grijs papier</td>
+            <td>Ovaal, grijs-bruin papier</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Gevaar voor bijen</td>
+            <td class="aziatisch">Groot – actieve jager</td>
+            <td>Beperkt</td>
+          </tr>
+          <tr>
+            <td class="kenmerk-kolom">Meldplicht</td>
+            <td class="aziatisch">Ja – verplicht melden</td>
+            <td>Nee</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- VEILIGHEIDS TIPS -->
+  <div class="kaart">
+    <div class="kaart-titel"><span class="icoon">&#9888;&#65039;</span> Wat moet u doen als u er een ziet?</div>
+    <ul class="tip-lijst">
+      <li><span class="tip-icoon">&#128247;</span><span>Maak een foto op veilige afstand — dit helpt bij de identificatie en melding.</span></li>
+      <li><span class="tip-icoon">&#128683;</span><span>Verwijder het nest <strong>nooit zelf</strong>. Aziatische hoornaars verdedigen hun nest agressief in groepen.</span></li>
+      <li><span class="tip-icoon">&#128222;</span><span>Bel direct Knol Hoornaar Bestrijding voor een veilige, professionele verwijdering.</span></li>
+      <li><span class="tip-icoon">&#127966;</span><span>Meld uw waarneming ook via <a href="https://waarneming.nl" target="_blank" rel="noopener" style="color:var(--groen-donker);font-weight:700;">waarneming.nl</a> — dit helpt wetenschappers de verspreiding in kaart te brengen.</span></li>
+      <li><span class="tip-icoon">&#127978;</span><span>Bent u gestoken en ervaart u ernstige klachten (benauwdheid, gezwollen keel)? Bel <strong>112</strong>.</span></li>
+    </ul>
+  </div>
+
+  <!-- CONTACT CTA -->
+  <div class="kaart" style="background:var(--groen-donker);color:#fff;text-align:center;">
+    <div style="font-size:1.3rem;font-weight:800;margin-bottom:10px;">Twijfelt u nog? Bel direct.</div>
+    <p style="opacity:.85;margin-bottom:24px;font-size:0.97rem;">Knol beoordeelt uw situatie gratis telefonisch en is snel ter plaatse.</p>
+    <a class="bel-groot" href="tel:+31600000000">&#128222;&nbsp; 06-XX XX XX XX</a>
+    <a href="mailto:info@knolhoornaars.nl" style="color:var(--accent);font-weight:700;font-size:0.97rem;display:inline-block;vertical-align:middle;">&#9993; info@knolhoornaars.nl</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Knol Hoornaar Bestrijding &nbsp;&middot;&nbsp; <a href="index.html">Terug naar home</a> &nbsp;&middot;&nbsp; <a href="mailto:info@knolhoornaars.nl">info@knolhoornaars.nl</a></p>
+</footer>
+
+<script>
+  const TOTAAL = 8;
+
+  function updateResultaat() {
+    const aangevinkt = document.querySelectorAll('#checklist input[type="checkbox"]:checked').length;
+
+    // Voortgangsbalk
+    document.getElementById('voortgang-tekst').textContent = aangevinkt + ' van ' + TOTAAL + ' kenmerken aangevinkt';
+    document.getElementById('voortgang-vulling').style.width = (aangevinkt / TOTAAL * 100) + '%';
+
+    const el = document.getElementById('resultaat');
+    const resetKnop = document.getElementById('reset-knop');
+
+    if (aangevinkt === 0) {
+      el.style.display = 'none';
+      resetKnop.style.display = 'none';
+      return;
+    }
+
+    el.style.display = 'block';
+    resetKnop.style.display = 'inline-block';
+
+    const titel = document.getElementById('resultaat-icoon-titel');
+    const tekst = document.getElementById('resultaat-tekst');
+    const actie = document.getElementById('resultaat-actie');
+
+    if (aangevinkt <= 2) {
+      el.className = 'kaart laag';
+      titel.innerHTML = '&#128994; Waarschijnlijk geen Aziatische hoornaar';
+      tekst.textContent = 'U heeft slechts ' + aangevinkt + ' van de ' + TOTAAL + ' kenmerken aangevinkt. Dit is waarschijnlijk een andere soort, zoals een Europese hoornaar of wesp. Twijfelt u toch? Maak een foto en neem contact op.';
+      actie.innerHTML = '<a class="meer-info-link" href="tel:+31600000000">&#128222; Toch bellen voor zekerheid</a>';
+    } else if (aangevinkt <= 5) {
+      el.className = 'kaart midden';
+      titel.innerHTML = '&#128993; Mogelijk een Aziatische hoornaar — wees alert';
+      tekst.textContent = 'U herkent ' + aangevinkt + ' van de ' + TOTAAL + ' kenmerken. Er is een reële kans dat het een Aziatische hoornaar betreft. Maak een foto en neem contact op met Knol voor een snelle beoordeling.';
+      actie.innerHTML = '<a class="bel-groot" href="tel:+31600000000">&#128222; Bel voor beoordeling</a>';
+    } else {
+      el.className = 'kaart hoog';
+      titel.innerHTML = '&#128308; Grote kans op een Aziatische hoornaar — neem direct actie';
+      tekst.textContent = 'U herkent ' + aangevinkt + ' van de ' + TOTAAL + ' kenmerken. Dit wijst sterk op een Aziatische hoornaar. Verwijder het nest niet zelf en bel direct Knol Hoornaar Bestrijding.';
+      actie.innerHTML = '<a class="bel-groot" href="tel:+31600000000">&#128222; Bel nu direct</a><a class="meer-info-link" href="mailto:info@knolhoornaars.nl">&#9993; Stuur een foto</a>';
+    }
+  }
+
+  function resetChecklist() {
+    document.querySelectorAll('#checklist input[type="checkbox"]').forEach(cb => cb.checked = false);
+    document.getElementById('resultaat').style.display = 'none';
+    document.getElementById('reset-knop').style.display = 'none';
+    document.getElementById('voortgang-tekst').textContent = '0 van 8 kenmerken aangevinkt';
+    document.getElementById('voortgang-vulling').style.width = '0%';
+  }
+</script>
+
+</body>
+</html>
